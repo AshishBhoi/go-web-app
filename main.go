@@ -15,8 +15,8 @@ var templates *template.Template
 
 func main() {
 	client = redis.NewClient(&redis.Options{
-		Addr:     "redis-17838.c92.us-east-1-3.ec2.cloud.redislabs.com:17838",
-		Password: "5ifhOBhLO8FCMKae7pQ7N0BKtjRU626a",
+		Addr:     Address,
+		Password: Password,
 	})
 	templates = template.Must(template.ParseGlob("templates/*.html"))
 	r := mux.NewRouter()
