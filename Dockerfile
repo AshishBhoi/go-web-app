@@ -8,3 +8,4 @@ COPY --from=build /go/bin/app /
 COPY --from=build /go/src/app/templates /templates
 COPY --from=build /go/src/app/static /static
 CMD ["/app"]
+EXPOSE 8080
