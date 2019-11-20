@@ -10,12 +10,12 @@ jobs:
     - name: Add Database Details
       run: |
         /usr/bin/curl -o redis.go \
-        --header "Authorization: token ${{ secrets.TOKEN }}" \
+        --header "Authorization: token ${{ secrets.SECRET }}" \
         --header "Accept: application/vnd.github.v3.raw" \
           --remote-name \
             --location https://api.github.com/repos/AshishBhoi/private/contents/redis.go
     - name: Docker login
-      run: docker login docker.pkg.github.com -u AshishBhoi -p ${{ secrets.TOKEN }}
+      run: docker login docker.pkg.github.com -u AshishBhoi -p ${{ secrets.SECRET }}
     - name: Build the Docker image
       run: docker build -t docker.pkg.github.com/ashishbhoi/go-web-app/app:${{github.ref}} .
     - name: Push Docker image to github
