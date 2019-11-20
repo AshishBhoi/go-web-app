@@ -17,6 +17,6 @@ jobs:
     - name: Docker login
       run: docker login docker.pkg.github.com -u AshishBhoi -p ${{ secrets.SECRET }}
     - name: Build the Docker image
-      run: docker build -t docker.pkg.github.com/ashishbhoi/go-web-app/app:${{github.ref}} .
+      run: docker build -t docker.pkg.github.com/ashishbhoi/go-web-app/app .
     - name: Push Docker image to github
-      run: docker push docker.pkg.github.com/ashishbhoi/go-web-app/app:${{github.ref}}
+      run: docker push docker.pkg.github.com/ashishbhoi/go-web-app/app
