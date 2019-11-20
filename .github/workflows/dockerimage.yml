@@ -1,0 +1,22 @@
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Add Database Details
+      run: |
+        /usr/bin/curl -o redis.go \
+        --header "Authorization: token ${{ secrets.TOKEN }}" \
+        --header "Accept: application/vnd.github.v3.raw" \
+          --remote-name \
+            --location https://api.github.com/repos/AshishBhoi/private/contents/redis.go
+    - name: Docker login
+      run: docker login docker.pkg.github.com -u AshishBhoi -p ${{ secrets.TOKEN }}
+    - name: Build the Docker image
+      run: docker build -t docker.pkg.github.com/ashishbhoi/go-web-app/app:${{github.ref}} .
+    - name: Push Docker image to github
+      run: docker push docker.pkg.github.com/ashishbhoi/go-web-app/app:${{github.ref}}
