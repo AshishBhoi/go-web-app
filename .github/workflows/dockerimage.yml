@@ -25,6 +25,7 @@ jobs:
       run: docker push docker.pkg.github.com/ashishbhoi/go-web-app/app:${{ steps.get_version.outputs.VERSION }}
       
   job2:
+    needs: job1
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
