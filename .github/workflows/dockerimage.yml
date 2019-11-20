@@ -18,7 +18,9 @@ jobs:
       run: docker login docker.pkg.github.com -u AshishBhoi -p ${{ secrets.SECRET }}
     - name: Version name
       run: foo=$(echo ${{ github.ref }} | sed 's/[^0-9\.]*//g')
+      env:
+        version: ${foo}
     - name: Build the Docker image
-      run: docker build -t docker.pkg.github.com/ashishbhoi/go-web-app/app:$foo .
+      run: docker build -t docker.pkg.github.com/ashishbhoi/go-web-app/app:${version} .
     - name: Push Docker image to github
       run: docker push docker.pkg.github.com/ashishbhoi/go-web-app/app:$foox
