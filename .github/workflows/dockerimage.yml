@@ -16,14 +16,10 @@ jobs:
             --location https://api.github.com/repos/AshishBhoi/private/contents/redis.go
     - name: Docker login
       run: docker login docker.pkg.github.com -u AshishBhoi -p ${{ secrets.SECRET }}
-    - name: Extract tag name
-      id: tag
-      uses: actions/github-script@0.2.0
-      with:
-        github-token: ${{ secrets.SECRET }}
-        script: |
-          return context.payload.ref.replace(/\/refs\/tags\//v, '');
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | sed 's/[^0-9\.]*//g')
     - name: Build the Docker image
-      run: docker build -t docker.pkg.github.com/ashishbhoi/go-web-app/app:${{ steps.tag.outputs.result }} .
+      run: docker build -t docker.pkg.github.com/ashishbhoi/go-web-app/app:${{ steps.get_version.outputs.VERSION }} .
     - name: Push Docker image to github
-      run: docker push docker.pkg.github.com/ashishbhoi/go-web-app/app:${{ steps.tag.outputs.result }}
+      run: docker push docker.pkg.github.com/ashishbhoi/go-web-app/app:${{ steps.get_version.outputs.VERSION }}
