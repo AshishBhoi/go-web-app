@@ -7,6 +7,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"html/template"
 	"net/http"
+	"os"
 )
 
 var client *redis.Client
@@ -15,8 +16,8 @@ var templates *template.Template
 
 func main() {
 	client = redis.NewClient(&redis.Options{
-		Addr:     Address,
-		Password: Password,
+		Addr:     os.Getenv("ADDRESS"),
+		Password: os.Getenv("PASSWORD"),
 	})
 	templates = template.Must(template.ParseGlob("templates/*.html"))
 	r := mux.NewRouter()
