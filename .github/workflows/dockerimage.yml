@@ -6,25 +6,25 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Docker login
-      run: docker login docker.pkg.github.com -u AshishBhoi -p ${{ secrets.SECRET }}
-    - name: Get the version
-      id: get_version
-      run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | sed 's/[^0-9\.]*//g')
-    - name: Build the Docker image
-      run: docker build -t docker.pkg.github.com/ashishbhoi/go-web-app/app:${{ steps.get_version.outputs.VERSION }} .
-    - name: Push Docker image to github
-      run: docker push docker.pkg.github.com/ashishbhoi/go-web-app/app:${{ steps.get_version.outputs.VERSION }}
-      
+      - uses: actions/checkout@v1
+      - name: Docker login
+        run: docker login docker.pkg.github.com -u AshishBhoi -p ${{ secrets.SECRET }}
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | sed 's/[^0-9\.]*//g')
+      - name: Build the Docker image
+        run: docker build -t docker.pkg.github.com/ashishbhoi/go-web-app/app:${{ steps.get_version.outputs.VERSION }} .
+      - name: Push Docker image to github
+        run: docker push docker.pkg.github.com/ashishbhoi/go-web-app/app:${{ steps.get_version.outputs.VERSION }}
+
   job2:
     needs: job1
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Docker login
-      run: docker login docker.pkg.github.com -u AshishBhoi -p ${{ secrets.SECRET }}
-    - name: Build the Docker image
-      run: docker build -t docker.pkg.github.com/ashishbhoi/go-web-app/app .
-    - name: Push Docker image to github
-      run: docker push docker.pkg.github.com/ashishbhoi/go-web-app/app
+      - uses: actions/checkout@v1
+      - name: Docker login
+        run: docker login docker.pkg.github.com -u AshishBhoi -p ${{ secrets.SECRET }}
+      - name: Build the Docker image
+        run: docker build -t docker.pkg.github.com/ashishbhoi/go-web-app/app .
+      - name: Push Docker image to github
+        run: docker push docker.pkg.github.com/ashishbhoi/go-web-app/app

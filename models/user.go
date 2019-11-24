@@ -7,8 +7,8 @@ import (
 )
 
 var (
-	ErrUserNotFound = errors.New("User Not FOund")
-	ErrInvalidLogin = errors.New("Invalid User")
+	ErrUserNotFound = errors.New("user not found")
+	ErrInvalidLogin = errors.New("invalid user")
 )
 
 func RegisterUser(username, password string) error {
